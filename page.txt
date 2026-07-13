@@ -1,0 +1,498 @@
+Home
+తెలుగు
+Land Details Search
+Search By*
+Survey No./ Sub-Division No.
+ Pattadar Passbook Number
+District*
+
+Please Select
+Adilabad|ఆదిలాబాద్
+Bhadradri Kothagudem|భద్రాద్రి కొత్తగూడెం
+Hanumakonda|హనుమకొండ
+Jagtial|జగిత్యాల్
+Jangoan|జనగాం
+Jayashankar Bhupalpalli|జయశంకర్ భూపాలపల్లి
+Jogulamba Gadwal|జోగులాంబ గద్వాల
+Kamareddy|కామారెడ్డి
+Karimnagar|కరీంనగర్
+Khammam|ఖమ్మం
+Kumuram Bheem (Asifabad)|కుమురం భీమ్ (ఆసిఫాబాద్)
+Mahabubabad|మహబూబాబాద్
+Mahabubnagar|మహబూబ్ నగర్
+Mancherial|మంచిర్యాల్
+Medak|మెదక్
+Medchal-Malkajigiri|మేడ్చల్-మల్కాజిగిరి
+Mulug|ములుగు
+Nagarkurnool|నాగర్ కర్నూల్
+Nalgonda|నల్గొండ
+Narayanpet|నారయణ పేట్
+Nirmal|నిర్మల్
+Nizamabad|నిజామాబాద్
+Peddapalli|పెద్దపల్లి
+Rajanna Sircilla|రాజన్నసిరిసిల్ల
+Rangareddy|రంగా రెడ్డి
+Sangareddy|సంగారెడ్డి
+Siddipet|సిద్దిపేట్
+Suryapet|సూర్యాపేట
+Vikarabad|వికారాబాద్
+Wanaparthy|వనపర్తి
+Warangal|వరంగల్
+Yadadri Bhuvanagiri|యాదాద్రి భువనగిరి
+Mandal*
+
+Please Select
+Adilabad (Rural)|ఆదిలాబాద్ (రూరల్)
+Adilabad (Urban)|ఆదిలాబాద్ (అర్బన్)
+Bazarhathnoor|బజార్ హత్నూర్
+Bela|బేల
+Bheempur|భీంపూర్
+Bhoraj|భోరజ్
+Boath|బోథ్
+Gadiguda|గాదిగూడ
+Gudi Hathnur|గుడిహత్నూర్
+Ichoda|ఇచ్చోడ
+Inderavelly|ఇందర్ వెల్లి
+Inderavelly|సిరికొండ
+Jainad|జైనధ్
+Mavala|మావల
+Narnoor|నార్నూర్
+Neradigonda|నేరడిగొండ
+Satnala|సాత్నాల
+Sirikonda|సిరికొండ
+Sonala|సోనాల
+Talamadugu|తలమడుగు
+Tamsi|తాంసి
+Utnur|ఉట్నూర్
+Village*
+
+Please Select
+Ankapoor|అంకాపూర్
+Ankoli|ఆంకోలి
+Anukunta|అనుకుంటా
+Arli (Buzurg)|ఆర్లి ( బుజుర్గ్ )
+Asoda Bhurki|ఆసోధ బుర్కి
+Belluri|బెల్లురి
+Bheemseri|భీంసారి
+Borenur|బుర్నూర్
+Chanda|చాందా -టి
+Chichadhari|చిచ్ ధరి
+Chikdhari Khanapur|చిక్ధారి ఖానాపూర్
+Chinchughat|చించుఘాట్
+Dimma|దిమ్మ
+Hathigutta|హత్తిగుట్ట
+Jamdapur|జమదాపూర్
+Kachkanti|కచకంటి
+Khandala (U)|ఖండాల
+Kottur (Nevegaon)|కొత్తూర్
+Kumbhajheri|కుంబఝర్రి
+Landasangvi|లాండా సాంగ్వి
+Lohara|లోహరా
+Lokari|లోకారి
+Maleborgaon|మాలే బోరిగాం
+Mallapur (D)|మల్లపూర్
+Maregaon|మారెగావ్
+Nishanghat|నిసాన్ ఘాట్
+Pippaldhari|పిప్పల్ ధరి
+Pochara|పొచ్చర
+Rampoor (Royati)|రాంపుర్ (రోయాటి)
+Takli|టాక్లి
+Tarada (Srimath)|తారాడ (శ్రీమత్)
+Tippa|తిప్పా
+Tontotoi|తంతోలి
+Wanwat|వాన్ వాట్
+Yapalguda|యాపాల్ గూడ
+Survey No./ Sub-Division No.
+
+Please select
+2/1
+2/2
+2/A/1
+2/B
+2/B/1
+2/B/A
+3/A
+3/A/1
+3/A/4
+3/A/5
+3/A/6
+3/A/7
+3/B
+4/1
+4/2/1
+4/2/2
+4/3/1
+4/3/2
+4/4
+5/1
+5/2
+5/3
+5/4
+5/5
+5/6
+5/7
+5/అ/1
+6
+6/1
+7/A
+7/B/1
+7/B/1/1
+7/B/1/2
+7/B/2
+7/C
+7/D/1/1
+7/D/1/2
+7/D/1/3
+7/D/2/1
+7/D/2/2
+7/D/2/3
+7/E
+7/E/1
+8/1
+8/2
+8/3
+8/4
+8/5
+8/6
+9/A/1
+9/A/2
+9/A/3/1
+9/A/3/2
+9/A/3/3
+9/A/3/4
+9/B/1/1
+9/B/1/2
+9/B/1/3
+9/B/2/1
+9/B/2/2
+9/B/2/3
+10/1
+10/2/1
+10/2/2
+11/A/1
+11/A/2
+11/A/3
+11/A/4
+12/1
+12/2
+12/3
+13/2/1
+13/2/2
+13/3
+14
+14/1
+15/1/2
+15/1/3
+15/2/1
+15/2/2
+15/2/3
+15/2/4/అ
+15/2/4/ఆ
+16/1
+16/2
+16/3
+16/4
+16/5
+16/6
+17/1
+17/10/2
+17/11
+17/11/1/అ
+17/11/1/ఆ
+17/11/1/ఇ
+17/12
+17/1/2
+17/13
+17/14/1
+17/14/1/1
+17/14/1/2
+17/14/1/3
+17/14/1/4
+17/14/2/1
+17/14/2/2
+17/15
+17/15/2
+17/16/1/1
+17/16/1/2
+17/16/2
+17/17/1
+17/18
+17/19
+17/3/అ
+17/3/ఆ
+17/3/ఇ
+17/5
+17/6/1
+17/6/2
+17/6/2/1
+17/7
+17/7/1
+17/8
+17/8/1
+17/8/2
+17/8/3
+17/8/4
+17/9/1
+17/9/2
+17/9/3
+19
+19/1
+20/1
+20/10
+20/11
+20/12
+20/13
+20/14
+20/15
+20/2
+20/3/1
+20/3/2
+20/4
+20/5
+20/6
+20/7
+20/8
+20/9
+20/A
+21/1
+21/2
+21/3
+21/4
+22/1
+22/10
+22/10/1
+22/11
+22/11/1
+22/12
+22/13
+22/2
+22/3
+22/4
+22/5
+22/6
+22/8
+22/9
+23/2
+23/3
+23/4
+23/5
+24/1/1
+24/1/2
+24/1/3
+24/2/1/1
+24/2/1/2
+24/2/2
+24/3/2
+25/B/1/అ
+25/B/1/ఆ
+25/B/1/ఇ
+25/B/2
+25/C
+25/D
+25/E
+25/F
+25/G
+25/H
+25/I/1
+25/J
+26/A/1
+26/A2
+26/A/2
+26/A/3
+26/B/1
+26/B/2
+26/B/3
+26/C
+26/C/1
+27/1/1
+27/1/2
+27/1/3
+27/2
+27/4
+27/5
+27/5/1
+27/5/2
+27/5/3
+27/5/4
+28/B/1
+28/B/1/1
+28/B/1/2
+28/B/1/3
+28/B/1/4
+28/B/2
+28/B/3
+28/B/4
+29
+30/1
+30/1/1
+30/2
+30/3
+30/4
+30/A
+31/1/1/అ
+31/1/1/ఆ/1
+31/1/1/ఆ/2
+31/1/1/ఇ
+31/1/2
+31/2
+31/3
+31/4
+31/5
+32/1
+32/1/1
+32/1/2
+32/1/3
+32/2
+32/3
+33/1/1
+33/1/2/1
+33/1/2/2
+33/1/2/3
+33/1/3
+33/1/4
+33/2
+34/A
+34/B
+34/C
+34/D
+34/E
+34/F
+34/G
+34/H
+34/I
+34/J
+35
+36/1
+36/2
+36/3
+37/1
+37/2
+38/1
+38/2
+38/2/1
+38/3
+39/1/1
+39/1/2
+39/1/3
+39/2
+40/1
+40/2
+40/2/1
+41/A/1
+41/A/అ
+41/A/ఆ
+41/A/ఇ
+41/A/ఈ
+42/2
+42/A
+43/1
+43/10
+43/11
+43/12
+43/13
+43/2
+43/3
+43/4
+43/5
+43/6
+43/7
+43/8
+43/9
+44/A
+44/B
+44/C
+44/D
+44/E
+44/F
+44/G
+44/H
+45/1
+45/2/1
+45/2/2
+45/3
+45/3/1
+45/3/2
+45/4
+45/4/1
+46/1
+46/2
+47/2/1
+47/2/2
+47/2/3
+47/4
+48/1/1
+48/1/2
+48/1/3
+49/1/1
+49/1/12
+49/1/3
+49/2
+49/3
+49/4
+49/5
+49/6
+49/7
+49/7/1
+50/1/1
+50/1/2
+50/2/1
+50/2/1/1
+50/2/1/2
+50/2/1/3
+50/2/1/4
+50/2/2/1
+50/2/2/2
+50/3
+50/3/1
+50/3/2
+50/3/3
+50/3/4
+50/4
+50/5
+50/6
+Khata No.
+
+-- Select --
+4
+ 
+Land Details
+Pattadar Details
+District
+Adilabad | ఆదిలాబాద్
+Mandal
+Adilabad (Rural) | ఆదిలాబాద్ (రూరల్)
+Village
+Ankapoor | అంకాపూర్
+Pattadar / Authorised Person Name
+కిష్టన్న / కిష్టన్న
+Father / Husband's Name
+నర్సింలు / నర్సింలు
+Khata Number
+4
+PPB Number
+Passbook number not available
+eKYC Status
+Aadhaar not available
+Land Details
+Total Extent (Ac. Gts)
+9.2400
+Survey No./ Sub-Division No.
+29
+Land Status
+Not Signed
+Nature of Land
+Patta
+Classification of Land
+Metta/ Dry
+Land Type
+Agriculture Lands
+Market value of Survey no.(in INR)
+337500.00
+Transaction Status
+Survey no / Sub-division no are part of Tribal Villages
+Disclaimer - The information provided online is updated, and no physical visit is required.
+Click here for CERSAI for Asset Based Search.
+Note : Records are updated as on - 08-07-2026
+Copyright © All rights reserved with Chief Commissioner of Land Administration, Govt. of Telangana.
+
+DefaultVM
