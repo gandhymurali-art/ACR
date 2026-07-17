@@ -6,6 +6,8 @@ RUN apt-get update && apt-get install -y \
     wget \
     gnupg \
     ca-certificates \
+    nano \
+    vim \
     tesseract-ocr \
     imagemagick \
     fonts-liberation \
