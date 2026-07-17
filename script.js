@@ -1,3 +1,4 @@
+
 const puppeteer = require("puppeteer-extra");
 const StealthPlugin = require("puppeteer-extra-plugin-stealth");
 puppeteer.use(StealthPlugin());
@@ -8,6 +9,65 @@ const path = require("path");
 const sharp = require("sharp");
 const { execSync } = require("child_process");
 const tesseract = require("node-tesseract-ocr");
+process.on("uncaughtException", (err) => {
+  console.error("UNCAUGHT EXCEPTION");
+  console.error(err);
+});
+
+process.on("unhandledRejection", (err) => {
+  console.error("UNHANDLED REJECTION");
+  console.error(err);
+});
+
+const LOG_FILE = path.join(__dirname, "crawler-debug.log");
+
+function debug(...args) {
+  const line =
+    `[${new Date().toISOString()}] ` +
+    args
+      .map((a) => {
+        if (a instanceof Error) {
+          return `${a.message}\n${a.stack}`;
+        }
+
+        if (typeof a === "object") {
+          try {
+            return JSON.stringify(a, null, 2);
+          } catch {
+            return String(a);
+          }
+        }
+
+        return String(a);
+      })
+      .join(" ");
+
+  fs.appendFileSync(LOG_FILE, line + "\n");
+}
+
+// Log everything automatically
+const oldLog = console.log;
+const oldError = console.error;
+
+console.log = (...args) => {
+  oldLog(...args);
+  debug(...args);
+};
+
+console.error = (...args) => {
+  oldError(...args);
+  debug(...args);
+};
+
+process.on("uncaughtException", (err) => {
+  console.error("UNCAUGHT EXCEPTION");
+  console.error(err);
+});
+
+process.on("unhandledRejection", (err) => {
+  console.error("UNHANDLED REJECTION");
+  console.error(err);
+});
 
 const OUTPUT_DIR = __dirname;
 
@@ -32,7 +92,6 @@ async function launchBrowser() {
       "--disable-blink-features=AutomationControlled"
     ]
   });
-
   page = await browser.newPage();
 
   page.on("console", (msg) => {
@@ -103,7 +162,7 @@ async function openPortal() {
   for (let i = 1; i <= 3; i++) {
     try {
       const response = await page.goto(
-        "https://bhubharati.telangana.gov.in/knowLandStatus",
+        "link",
         {
           waitUntil: "domcontentloaded",
           timeout: 120000,
@@ -343,7 +402,7 @@ async function clickFetch() {
 
   try {
     console.log(await res.text());
-  } catch (e) {}
+  } catch (e) { }
 
   console.log("Fetch clicked");
 }
@@ -444,6 +503,7 @@ async function crawl(request) {
     await openPortal();
     await patchCookie();
 
+
     console.log(await page.evaluate(() => cookie.toString()));
 
     console.log("Selecting District...");
@@ -528,27 +588,27 @@ async function crawl(request) {
         captchaSolved = await waitForGrid(20000);
       }
 
-if (captchaSolved) {
+      if (captchaSolved) {
 
-    console.log("Captcha Solved");
+        console.log("Captcha Solved");
 
-    await page.waitForFunction(() => {
-        const grid = document.getElementById("searchDataGrid");
-        return grid &&
-               grid.innerText &&
-               grid.innerText.trim().length > 100;
-    }, { timeout: 30000 });
+        await page.waitForFunction(() => {
+          const grid = document.getElementById("searchDataGrid");
+          return grid &&
+            grid.innerText &&
+            grid.innerText.trim().length > 100;
+        }, { timeout: 30000 });
 
-    await new Promise(resolve => setTimeout(resolve, 2000));
+        await new Promise(resolve => setTimeout(resolve, 2000));
 
-    pageText = await getPageText();
+        pageText = await getPageText();
 
-    console.log("========== PAGE ==========");
-    console.log(pageText);
-    console.log("==========================");
+        console.log("========== PAGE ==========");
+        console.log(pageText);
+        console.log("==========================");
 
-    break;
-}
+        break;
+      }
 
       console.log("No grid returned");
 
@@ -563,6 +623,33 @@ if (captchaSolved) {
     }
 
     if (!captchaSolved) {
+
+      console.error("Captcha failed after all retries");
+
+      console.error("District:", district);
+      console.error("Mandal:", mandal);
+      console.error("Village:", village);
+      console.error("Survey:", surveyNumber);
+      console.error("Khata:", khataValue);
+
+      console.error("Last Page Text:");
+      console.error(pageText);
+
+      await page.screenshot({
+        path: path.join(__dirname, "captcha_failed.png"),
+        fullPage: true,
+      });
+
+      fs.writeFileSync(
+        path.join(__dirname, "captcha_failed_page.txt"),
+        pageText
+      );
+
+      fs.writeFileSync(
+        path.join(__dirname, "captcha_failed.html"),
+        await page.content()
+      );
+
       throw new Error("Captcha Failed");
     }
 
@@ -664,18 +751,6 @@ if (captchaSolved) {
     return row;
 
 
-    // Return everything
-    return {
-      success: true,
-      data: row,
-      files: {
-        excel: excelPath,
-        screenshot: screenshotPath
-      }
-    };
-
-    // const workbook = XLSX.utils.book_new();
-
     // const worksheet = XLSX.utils.json_to_sheet([row]);
 
     // worksheet["!cols"] = [
@@ -715,25 +790,51 @@ if (captchaSolved) {
 
     // console.log("Completed Successfully");
   } catch (err) {
+
+    console.error("====================================");
+    console.error("CRAWL FAILED");
     console.error(err);
+    console.error("Request:", request);
 
     if (page) {
       try {
+
+        const html = await page.content();
+
+        fs.writeFileSync(
+          path.join(__dirname, "last-page.html"),
+          html
+        );
+
+        console.log("Saved last-page.html");
+
+      } catch (e) {
+        console.error(e);
+      }
+    }
+
+    if (page) {
+      try {
+
         await page.screenshot({
-          path: path.join(OUTPUT_DIR, "error.png"),
+          path: path.join(__dirname, "error.png"),
           fullPage: true,
         });
-      } catch (e) {}
+
+        console.log("Saved error.png");
+
+      } catch (e) {
+        console.error(e);
+      }
     }
 
     if (browser) {
       try {
-        //await browser.close();
-      } catch (e) {}
+        await browser.close();
+      } catch (e) { }
     }
 
     throw err;
-
   }
 }
 
