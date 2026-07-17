@@ -1,8 +1,4 @@
-const IMAGE_MAGICK_CMD = fs.existsSync("/usr/bin/magick")
-  ? "magick"
-  : "convert";
 
-console.log("Using ImageMagick command:", IMAGE_MAGICK_CMD);
 const puppeteer = require("puppeteer-extra");
 const StealthPlugin = require("puppeteer-extra-plugin-stealth");
 puppeteer.use(StealthPlugin());
@@ -13,6 +9,11 @@ const path = require("path");
 const sharp = require("sharp");
 const { execSync } = require("child_process");
 const tesseract = require("node-tesseract-ocr");
+const IMAGE_MAGICK_CMD = fs.existsSync("/usr/bin/magick")
+  ? "magick"
+  : "convert";
+
+console.log("Using ImageMagick command:", IMAGE_MAGICK_CMD);
 process.on("uncaughtException", (err) => {
   console.error("UNCAUGHT EXCEPTION");
   console.error(err);
