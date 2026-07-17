@@ -9,7 +9,19 @@ RUN apt-get update && apt-get install -y \
     nano \
     vim \
     tesseract-ocr \
-    imagemagick \
+    build-essential \
+    pkg-config \
+    libjpeg-dev \
+    libpng-dev \
+    libtiff-dev \
+    libwebp-dev \
+    libheif-dev \
+    libxml2-dev \
+    libfreetype6-dev \
+    liblcms2-dev \
+    libx11-dev \
+    libxt-dev \
+    libltdl-dev \
     fonts-liberation \
     libasound2 \
     libatk-bridge2.0-0 \
@@ -27,7 +39,21 @@ RUN apt-get update && apt-get install -y \
     libxrandr2 \
     libxshmfence1 \
     xdg-utils \
-    libglib2.0-0
+    libglib2.0-0 \
+    && rm -rf /var/lib/apt/lists/*
+    
+RUN wget -O ImageMagick-7.1.2-25.tar.gz \
+    https://github.com/ImageMagick/ImageMagick/archive/refs/tags/7.1.2-25.tar.gz && \
+    tar -xzf ImageMagick-7.1.2-25.tar.gz && \
+    cd ImageMagick-7.1.2-25 && \
+    ./configure && \
+    make -j"$(nproc)" && \
+    make install && \
+    ldconfig && \
+    cd .. && \
+    rm -rf ImageMagick-7.1.2-25 ImageMagick-7.1.2-25.tar.gz
+
+RUN magick -version  
 
 RUN wget -qO- https://dl.google.com/linux/linux_signing_key.pub \
 | gpg --dearmor \
