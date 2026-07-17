@@ -162,7 +162,7 @@ async function openPortal() {
   for (let i = 1; i <= 3; i++) {
     try {
       const response = await page.goto(
-        "link",
+        "https://bhubharati.telangana.gov.in/knowLandStatus",
         {
           waitUntil: "domcontentloaded",
           timeout: 120000,
