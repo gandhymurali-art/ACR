@@ -9,6 +9,7 @@ const path = require("path");
 const sharp = require("sharp");
 const { execSync } = require("child_process");
 const tesseract = require("node-tesseract-ocr");
+// const { BlobServiceClient } = require("@azure/storage-blob");
 const IMAGE_MAGICK_CMD = fs.existsSync("/usr/bin/magick")
   ? "magick"
   : "convert";
@@ -74,7 +75,22 @@ process.on("unhandledRejection", (err) => {
   console.error(err);
 });
 
+
+const DEBUG_CAPTCHA = process.env.DEBUG_CAPTCHA === "true";
+const DEBUG_ATTEMPTS = process.env.DEBUG_ATTEMPTS === "true";
+
 const OUTPUT_DIR = __dirname;
+
+// if (!process.env.AZURE_STORAGE_CONNECTION_STRING) {
+//   throw new Error("AZURE_STORAGE_CONNECTION_STRING is missing");
+// }
+
+// const blobServiceClient = BlobServiceClient.fromConnectionString(
+//   process.env.AZURE_STORAGE_CONNECTION_STRING,
+// );
+
+// const containerClient = blobServiceClient.getContainerClient("screenshots");
+
 
 if (!fs.existsSync(OUTPUT_DIR)) {
   fs.mkdirSync(OUTPUT_DIR, { recursive: true });
@@ -83,6 +99,22 @@ if (!fs.existsSync(OUTPUT_DIR)) {
 let browser;
 let page;
 let wrongCaptcha = false;
+
+async function uploadToBlob(buffer, fileName) {
+
+  const blobClient =
+    containerClient.getBlockBlobClient(fileName);
+
+  await blobClient.uploadData(buffer, {
+
+    blobHTTPHeaders: {
+      blobContentType: "image/png"
+    }
+
+  });
+
+  return blobClient.url;
+}
 
 async function launchBrowser() {
   browser = await puppeteer.launch({
@@ -517,7 +549,8 @@ async function crawl(request) {
     mandal,
     village,
     surveyNumber,
-    khataNumber
+    khataNumber,
+    property_id
   } = request;
 
   try {
@@ -719,59 +752,29 @@ async function crawl(request) {
       "Transaction Status": getValue(pageText, "Transaction Status"),
     };
 
-    // console.log(row);
-    // Create Excel
-    // const workbook = XLSX.utils.book_new();
-
-    // const worksheet = XLSX.utils.json_to_sheet([row]);
-
-    // worksheet["!cols"] = [
-    //   { wch: 20 },
-    //   { wch: 20 },
-    //   { wch: 20 },
-    //   { wch: 18 },
-    //   { wch: 35 },
-    //   { wch: 30 },
-    //   { wch: 15 },
-    //   { wch: 20 },
-    //   { wch: 18 },
-    //   { wch: 18 },
-    //   { wch: 20 },
-    //   { wch: 20 },
-    //   { wch: 20 },
-    //   { wch: 20 },
-    //   { wch: 20 },
-    // ];
-
-    // XLSX.utils.book_append_sheet(workbook, worksheet, "Land Data");
-
-    // const excelPath = path.join(
-    //   OUTPUT_DIR,
-    //   `land_${Date.now()}.xlsx`
-    // );
-
-    // XLSX.writeFile(workbook, excelPath);
-
-    // console.log("Excel Saved:", excelPath);
-
-
-    // // Screenshot
-    // const screenshotPath = path.join(
-    //   OUTPUT_DIR,
-    //   `result_${Date.now()}.png`
-    // );
-
-    // await page.screenshot({
-    //   path: screenshotPath,
-    //   fullPage: true
+    
+    // const screenshotBuffer = await page.screenshot({
+    //   fullPage: true,
     // });
 
-    // console.log("Screenshot Saved");
+    // let screenshotBlobUrl = null;
 
+    // try {
+    //   screenshotBlobUrl = await uploadToBlob(
+    //     screenshotBuffer,
+    //     `result/result_${randomUUID()}.png`,
+    //   );
+
+    //   console.log("Result Screenshot:", screenshotBlobUrl);
+    // } catch (e) {
+    //   console.error("Blob Upload Failed (result):", e.message);
+    // }
+
+    const dataWithBlobUrl = { ...row, "blobUrl": "screenshotBlobUrl will be here"  }
 
     // Close Browser
     await browser.close();
-    return row;
+    return dataWithBlobUrl;
 
 
     // const worksheet = XLSX.utils.json_to_sheet([row]);
