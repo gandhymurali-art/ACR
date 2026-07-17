@@ -1,4 +1,8 @@
+const IMAGE_MAGICK_CMD = fs.existsSync("/usr/bin/magick")
+  ? "magick"
+  : "convert";
 
+console.log("Using ImageMagick command:", IMAGE_MAGICK_CMD);
 const puppeteer = require("puppeteer-extra");
 const StealthPlugin = require("puppeteer-extra-plugin-stealth");
 puppeteer.use(StealthPlugin());
@@ -318,10 +322,28 @@ async function solveCaptcha() {
       );
 
       try {
-        execSync(
-          `magick "${resized}" -channel ${channel} -separate -auto-level -contrast-stretch 0x5% -threshold ${thresholdPercent}% -morphology Close Octagon -resize 800% "${processed}"`,
+        const command =
+          `${IMAGE_MAGICK_CMD} "${resized}" ` +
+          `-channel ${channel} ` +
+          `-separate ` +
+          `-auto-level ` +
+          `-contrast-stretch 0x5% ` +
+          `-threshold ${thresholdPercent}% ` +
+          `-morphology Close Octagon ` +
+          `-resize 800% ` +
+          `"${processed}"`;
+
+        console.log("Executing:", command);
+
+        execSync(command);
+        console.log(
+          "Processed Exists:",
+          fs.existsSync(processed),
+          processed
         );
-      } catch {
+      } catch (e) {
+        console.error("ImageMagick command failed");
+        console.error(e.message);
         continue;
       }
 
