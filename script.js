@@ -9,7 +9,7 @@ const path = require("path");
 const sharp = require("sharp");
 const { execSync } = require("child_process");
 const tesseract = require("node-tesseract-ocr");
-// const { BlobServiceClient } = require("@azure/storage-blob");
+const { BlobServiceClient } = require("@azure/storage-blob");
 const IMAGE_MAGICK_CMD = fs.existsSync("/usr/bin/magick")
   ? "magick"
   : "convert";
@@ -81,16 +81,18 @@ const DEBUG_ATTEMPTS = process.env.DEBUG_ATTEMPTS === "true";
 
 const OUTPUT_DIR = __dirname;
 
-// if (!process.env.AZURE_STORAGE_CONNECTION_STRING) {
-//   throw new Error("AZURE_STORAGE_CONNECTION_STRING is missing");
-// }
+if (!process.env.AZURE_STORAGE_CONNECTION_STRING) {
+  throw new Error("AZURE_STORAGE_CONNECTION_STRING is missing");
+}
+console.log(
+  "Storage connection string exists:",
+  !!process.env.AZURE_STORAGE_CONNECTION_STRING
+);
+const blobServiceClient = BlobServiceClient.fromConnectionString(
+  process.env.AZURE_STORAGE_CONNECTION_STRING,
+);
 
-// const blobServiceClient = BlobServiceClient.fromConnectionString(
-//   process.env.AZURE_STORAGE_CONNECTION_STRING,
-// );
-
-// const containerClient = blobServiceClient.getContainerClient("screenshots");
-
+const containerClient = blobServiceClient.getContainerClient("acr-container");
 
 if (!fs.existsSync(OUTPUT_DIR)) {
   fs.mkdirSync(OUTPUT_DIR, { recursive: true });
@@ -550,7 +552,7 @@ async function crawl(request) {
     village,
     surveyNumber,
     khataNumber,
-    property_id
+    propertyId="111"
   } = request;
 
   try {
@@ -753,68 +755,29 @@ async function crawl(request) {
     };
 
     
-    // const screenshotBuffer = await page.screenshot({
-    //   fullPage: true,
-    // });
+    const screenshotBuffer = await page.screenshot({
+      fullPage: true,
+    });
 
-    // let screenshotBlobUrl = null;
+    let screenshotBlobUrl = null;
 
-    // try {
-    //   screenshotBlobUrl = await uploadToBlob(
-    //     screenshotBuffer,
-    //     `result/result_${randomUUID()}.png`,
-    //   );
+    try {
+      screenshotBlobUrl = await uploadToBlob(
+        screenshotBuffer,
+        `result/result_${propertyId}.png`,
+      );
 
-    //   console.log("Result Screenshot:", screenshotBlobUrl);
-    // } catch (e) {
-    //   console.error("Blob Upload Failed (result):", e.message);
-    // }
+      console.log("Result Screenshot:", screenshotBlobUrl);
+    } catch (e) {
+      console.error("Blob Upload Failed (result):", e.message);
+    }
 
-    const dataWithBlobUrl = { ...row, "blobUrl": "screenshotBlobUrl will be here"  }
+    const dataWithBlobUrl = { ...row, "blobUrl": screenshotBlobUrl  }
 
     // Close Browser
     await browser.close();
+    console.log("Completed Successfully");
     return dataWithBlobUrl;
-
-
-    // const worksheet = XLSX.utils.json_to_sheet([row]);
-
-    // worksheet["!cols"] = [
-    //   { wch: 20 },
-    //   { wch: 20 },
-    //   { wch: 20 },
-    //   { wch: 18 },
-    //   { wch: 35 },
-    //   { wch: 30 },
-    //   { wch: 15 },
-    //   { wch: 20 },
-    //   { wch: 18 },
-    //   { wch: 18 },
-    //   { wch: 20 },
-    //   { wch: 20 },
-    //   { wch: 20 },
-    //   { wch: 20 },
-    //   { wch: 20 },
-    // ];
-
-    // XLSX.utils.book_append_sheet(workbook, worksheet, "Land Data");
-
-    // const excelPath = path.join(OUTPUT_DIR, "pattadar_land_details.xlsx");
-
-    // XLSX.writeFile(workbook, excelPath);
-
-    // console.log("Excel Saved:", excelPath);
-
-    // await page.screenshot({
-    //   path: path.join(OUTPUT_DIR, "result.png"),
-    //   fullPage: true,
-    // });
-
-    // console.log("Screenshot Saved");
-
-    // //await browser.close();
-
-    // console.log("Completed Successfully");
   } catch (err) {
 
     console.error("====================================");
