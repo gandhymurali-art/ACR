@@ -626,21 +626,21 @@ async function crawl(request) {
 
         pageText = await getPageText();
 
-        console.log("========== PAGE ==========");
-        console.log(pageText);
-        console.log("==========================");
+        // console.log("========== PAGE ==========");
+        // console.log(pageText);
+        // console.log("==========================");
 
         break;
       }
 
-      console.log("No grid returned");
+      // console.log("No grid returned");
 
       await page.screenshot({
         path: path.join(OUTPUT_DIR, `attempt_${attempt}.png`),
         fullPage: true,
       });
 
-      console.log(await page.evaluate(() => document.body.innerText));
+      // console.log(await page.evaluate(() => document.body.innerText));
 
       await refreshKhata();
     }
