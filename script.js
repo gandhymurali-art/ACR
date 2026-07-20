@@ -569,7 +569,9 @@ async function crawl(request) {
     await waitForSelect(0);
 
     // await selectByValue(0, "13");
-    await selectByValue(0, district);
+    // await selectByValue(0, district);
+
+    await selectByText(0, district);
 
     await waitForSelect(1);
 
