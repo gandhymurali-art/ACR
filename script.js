@@ -751,6 +751,8 @@ async function crawl(request) {
 
       Classification: getValue(pageText, "Classification of Land"),
 
+      "Market Value": getValue(pageText, "Market value of Survey no.(in INR)"),
+
       "Land Type": getValue(pageText, "Land Type"),
 
       "Transaction Status": getValue(pageText, "Transaction Status"),
