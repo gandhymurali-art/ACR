@@ -823,7 +823,7 @@ async function clickAllDocumentEyes(sourcePage, browserInstance, ppbNumber) {
   return results;
 }
 
-async function crawl(request) {
+async function crawlUsingPPNumber(request) {
   const { ppbNumber, aadhaarFirst4 } = request;
 
   try {
@@ -1133,5 +1133,5 @@ async function crawl(request) {
 }
 
 module.exports = {
-  crawl,
+  crawlUsingPPNumber,
 };
