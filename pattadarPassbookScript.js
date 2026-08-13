@@ -946,6 +946,7 @@ async function crawlUsingPPNumber(request) {
     await enterAadhaar(aadhaarFirst4);
 
     let gridLoaded = false;
+    let resultDetails = {};
 
     for (let attempt = 1; attempt <= 20; attempt++) {
       console.log("\nCaptcha Attempt (Phase 2)", attempt);
@@ -984,11 +985,99 @@ async function crawlUsingPPNumber(request) {
 
       gridLoaded = await waitForGrid(30000);
 
+      // if (gridLoaded) {
+      //   pageText = await getPageText();
+      //   console.log("Result table loaded.");
+      //   break;
+      // }
+
       if (gridLoaded) {
         pageText = await getPageText();
+
         console.log("Result table loaded.");
+
+        // ==========================================================
+        // EXTRACT RESULT DETAILS
+        //
+        // DOM-based extraction (instead of splitting pageText into
+        // lines) so it doesn't depend on label/value landing on
+        // consecutive lines of innerText: for each known label, find
+        // the element containing that exact text, then read the next
+        // sibling cell within the same row/parent. Best-effort - a
+        // label the portal doesn't render for this result is simply
+        // absent from the returned object, nothing throws.
+        // ==========================================================
+        resultDetails = await page.evaluate(() => {
+          const result = {};
+
+          // Save complete result-page text for debugging/reference
+          result.pageText = document.body.innerText;
+
+          const text = document.body.innerText;
+
+          function getValueAfterLabel(label) {
+            const lines = text
+              .split("\n")
+              .map((line) => line.trim())
+              .filter(Boolean);
+
+            const index = lines.findIndex((line) => line === label);
+
+            if (index !== -1 && index + 1 < lines.length) {
+              return lines[index + 1];
+            }
+
+            return null;
+          }
+
+          result.District = getValueAfterLabel("District");
+          result.Mandal = getValueAfterLabel("Mandal");
+          result.Village = getValueAfterLabel("Village");
+
+          result["Pattadar / Authorised Person Name"] =
+            getValueAfterLabel("Pattadar / Authorised Person Name");
+
+          result["Father / Husband's Name"] =
+            getValueAfterLabel("Father / Husband's Name");
+
+          result["Khata No."] = getValueAfterLabel("Khata No.");
+
+          // Extract the document-type table (Pattadar Passbook / ROR
+          // rows) separately, directly from the DOM headers + cells.
+          const documentTable = document.querySelector("#khatadetails");
+
+          if (documentTable) {
+            const headers = [
+              ...documentTable.querySelectorAll("thead th"),
+            ].map((th) => th.innerText.trim());
+
+            const rows = [...documentTable.querySelectorAll("tbody tr")];
+
+            result.documents = rows.map((row) => {
+              const values = [...row.querySelectorAll("td")].map((td) =>
+                td.innerText.trim(),
+              );
+
+              const item = {};
+
+              values.forEach((value, index) => {
+                item[headers[index] || `column_${index + 1}`] = value;
+              });
+
+              return item;
+            });
+          }
+
+          return result;
+        });
+
+        resultDetails["PPB Number"] = ppbNumber;
+
+        console.log("RESULT DETAILS:", JSON.stringify(resultDetails, null, 2));
+
         break;
       }
+
 
       console.log("Grid not loaded yet, retrying Phase 2");
       await page.screenshot({
@@ -1082,6 +1171,19 @@ async function crawlUsingPPNumber(request) {
 
     return {
       status: "success",
+      resultDetails: {
+      District: resultDetails.District,
+      Mandal: resultDetails.Mandal,
+      Village: resultDetails.Village,
+      "Pattadar / Authorised Person Name":
+        resultDetails["Pattadar / Authorised Person Name"],
+      "Father / Husband's Name":
+        resultDetails["Father / Husband's Name"],
+      "Khata No.":
+        resultDetails["Khata No."],
+      "PPB Number":
+          resultDetails["PPB Number"],
+      },
       resultScreenshot: {
         fileName: resultScreenshotName,
         blobUrl: resultBlobUrl,
